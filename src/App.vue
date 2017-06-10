@@ -1,15 +1,34 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+    <button @click="sumUp">Count {{count.acum}}</button>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'app'
+import Vue from 'vue'
+import { Component, Watch } from 'vue-property-decorator'
+
+@Component
+export default class App extends Vue {
+  count: any = {
+    acum: 0
+  }
+
+  @Watch('count', { deep: true })
+  watchCount(newVal, oldVal) {
+    console.log('newVal: ', newVal, ', oldVal: ', oldVal)
+  }
+
+  sumUp() {
+    this.count.acum++
+  }
 }
 </script>
+
+
+
+
+
 
 <style>
 #app {
@@ -19,5 +38,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+button {
+  font-size: 2em;
 }
 </style>
