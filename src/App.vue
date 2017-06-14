@@ -1,15 +1,30 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+    <Users/>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'app'
+import Vue from 'vue'
+import { Component, Provide } from 'vue-property-decorator'
+import Users from './components/Users.vue'
+
+import axios from 'axios'
+
+@Component({
+  components: {
+    Users
+  }
+})
+export default class App extends Vue {
+  @Provide() http = axios
 }
 </script>
+
+
+
+
+
 
 <style>
 #app {
@@ -19,5 +34,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+button {
+  font-size: 2em;
 }
 </style>
