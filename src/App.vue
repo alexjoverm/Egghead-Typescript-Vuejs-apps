@@ -1,15 +1,46 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+    <ul>
+      <li v-for="user in users">{{ user.name }}</li>
+    </ul>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'app'
+import Vue from 'vue'
+import Component from 'vue-class-component'
+import { lazyInject } from './container'
+import { TYPES } from './types'
+
+@Component
+export default class App extends Vue {
+  users = []
+
+  @lazyInject(TYPES.users)
+  usersService
+
+  created() {
+    this.usersService.getUsers()
+      .then(data => {
+        this.users = data
+      })
+
+  }
 }
+
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <style>
 #app {
@@ -19,5 +50,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+button {
+  font-size: 2em;
 }
 </style>
